@@ -2,9 +2,9 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# 환영합니다
 
-Let's discover **Docusaurus in less than 5 minutes**.
+Apollo Client는 GraphQL 활용를 위한 최고의 Client입니다.
 
 ## Getting Started
 
