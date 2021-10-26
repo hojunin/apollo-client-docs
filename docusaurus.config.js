@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
     title: 'Apollo Client 한국어 문서',
     tagline: '한국어 번역본입니다',
-    url: 'https://apollo-client-docs.github.io',
+    url: 'https://hojunin.github.io',
     baseUrl: '/apollo-client-docs/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
