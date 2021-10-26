@@ -4,7 +4,6 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
-import HomepageFeatures from '../components/HomepageFeatures';
 
 function HomepageHeader() {
     const { siteConfig } = useDocusaurusContext();
@@ -12,7 +11,8 @@ function HomepageHeader() {
         <header className={clsx('hero hero--primary', styles.heroBanner)}>
             <div className="container">
                 <h1 className="hero__title">{siteConfig.title}</h1>
-                <p className="hero__subtitle">{siteConfig.tagline}</p>
+                <p className="hero__subtitle">왜 아무도 번역을 안하는거야</p>
+                <p>답답해서 내가한다!</p>
                 <div className={styles.buttons}>
                     <Link className="button button--secondary button--lg" to="/docs/intro">
                         아폴로 클라이언트 번역본 보러가기

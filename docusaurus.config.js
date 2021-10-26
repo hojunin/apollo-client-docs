@@ -5,13 +5,13 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
     title: 'Apollo Client 한국어 문서',
-    tagline: '한국어 번역본입니다',
+    tagline: '왜 아무도 번역을 안하는거야',
     url: 'https://hojunin.github.io',
     baseUrl: '/apollo-client-docs/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/favicon.ico',
-    organizationName: 'hojunin', // Usually your GitHub org/user name.
+    organizationName: 'hojunin',
     projectName: 'apollo-client-docs',
 
     presets: [
@@ -40,8 +40,8 @@ const config = {
             navbar: {
                 title: '아폴로 클라이언트 번역본',
                 logo: {
-                    alt: 'My Site Logo',
-                    src: 'img/logo.svg',
+                    alt: 'Apollo',
+                    src: 'img/apollo_logo.png',
                 },
                 items: [
                     {
