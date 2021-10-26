@@ -6,13 +6,13 @@ sidebar_position: 1
 
 ---
 
-[Apollo Docs](https://www.apollographql.com/docs/react/)를 번역 및 의역한 내용입니다.
+### [Apollo Docs](https://www.apollographql.com/docs/react/)를 번역 및 의역한 내용입니다.
+
+---
 
 아폴로 클라이언트는 local(Cache)과 remote(Server)를 동시에 아우르는 JS를 위한상태 관리 라이브러리입니다. Apollo Client를 사용하여 데이터를 당겨오고, 수정하는 과정 속에서 당신의 웹앱의 UI가 자동으로 업데이트 됩니다.
 
 아폴로 클라이언트는 현대 개발 방식과 같이 효율적이고 예측 가능하면서 명확한 방식으로 코드를 구성할 수 있게 해줍니다. Apollo Client의 코어인 @apollo/client 라이브러리는 React와 다른 FE FrameWork(Vue, Angular..)들을 위한 기능들이 이미 구현되어 있습니다.
-
----
 
 ## 특징
 

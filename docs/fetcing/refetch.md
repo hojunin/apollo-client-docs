@@ -1,8 +1,9 @@
 ---
-sidebar_position: 5
+sidebar_position: 3
+title: 다시 조회하기(Refetch)
 ---
 
-# Deploy your site
+# 다시 조회하기(Refetch)
 
 Docusaurus is a **static-site-generator** (also called **[Jamstack](https://jamstack.org/)**).
 
