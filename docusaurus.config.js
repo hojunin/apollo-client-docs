@@ -37,7 +37,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      googleAnalytics: {
+      gtag: {
         trackingID: "G-Q748MW528E",
         // 옵션 항목
         anonymizeIP: true, // 익명 IP를 사용해야 한다면
