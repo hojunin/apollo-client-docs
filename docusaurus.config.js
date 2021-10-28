@@ -13,7 +13,6 @@ const config = {
   favicon: "img/favicon.ico",
   organizationName: "hojunin",
   projectName: "apollo-client-docs",
-
   presets: [
     [
       "@docusaurus/preset-classic",
@@ -33,56 +32,51 @@ const config = {
       }),
     ],
   ],
-  plugins: ["@docusaurus/plugin-google-gtag"],
-  themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
-      gtag: {
-        trackingID: "G-Q748MW528E",
-        // 옵션 항목
-        anonymizeIP: true, // 익명 IP를 사용해야 한다면
+  themeConfig: {
+    gtag: {
+      trackingID: "G-Q748MW528E",
+    },
+    navbar: {
+      title: "아폴로 클라이언트 번역본",
+      logo: {
+        alt: "Apollo",
+        src: "img/apollo_logo.png",
       },
-      navbar: {
-        title: "아폴로 클라이언트 번역본",
-        logo: {
-          alt: "Apollo",
-          src: "img/apollo_logo.png",
+      items: [
+        {
+          type: "doc",
+          docId: "intro",
+          position: "left",
+          label: "문서 보기",
         },
-        items: [
-          {
-            type: "doc",
-            docId: "intro",
-            position: "left",
-            label: "문서 보기",
-          },
-          { to: "/blog", label: "블로그", position: "left" },
-          {
-            href: "https://github.com/hojunin",
-            label: "개발자 : HojunIn",
-            position: "right",
-          },
-        ],
-      },
-      footer: {
-        style: "dark",
-        links: [
-          {
-            title: "HOJUNIN",
-            items: [
-              {
-                label: "문의하기",
-                to: "/docs/intro",
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} HojunIn`,
-      },
-      prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
-      },
-    }),
+        { to: "/blog", label: "블로그", position: "left" },
+        {
+          href: "https://github.com/hojunin",
+          label: "개발자 : HojunIn",
+          position: "right",
+        },
+      ],
+    },
+    footer: {
+      style: "dark",
+      links: [
+        {
+          title: "HOJUNIN",
+          items: [
+            {
+              label: "문의하기",
+              to: "/docs/intro",
+            },
+          ],
+        },
+      ],
+      copyright: `Copyright © ${new Date().getFullYear()} HojunIn`,
+    },
+    prism: {
+      theme: lightCodeTheme,
+      darkTheme: darkCodeTheme,
+    },
+  },
 };
 
 module.exports = config;
