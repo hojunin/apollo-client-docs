@@ -156,7 +156,7 @@ Refetch를 사용하는 것은 최신 데이터를 가져오는 가장 확실한
 ## 로딩 상태 감지하기
 
 우리는 useQuery 훅이 현재의 로딩 상태값을 리턴한다는 걸 알고 있습니다. 이건 쿼리가 첫번째로 로드될 때는 유용합니다. 하지만 우리가 풀링하거나 리페칭할 때는 어떨까요?
-일전에 리페치하던 예시로 돌아가봅시다. 만약 당신이 리페치하는 버튼을 눌렀다면, 컴포넌트가 새로운 데이터를 받기 전까진 다시 렌더링되지 않는 모습을 봤을겁니다.
+일전에 리페치하던 예시로 돌아가봅시다. 만약 리페치하는 버튼을 눌렀다면, 컴포넌트가 새로운 데이터를 받기 전까진 다시 렌더링되지 않는 모습을 봤을겁니다.
 그럼 만약 우리가 데이터를 리페칭한다는 사실을 알려줬다면 어땠을까요?
 
 useQuery 훅의 response 객체는 networkStatus라는 쿼리의 상태를 나타내는 잘 정제된(fine-grained) 값을 제공합니다.
@@ -187,17 +187,17 @@ function DogPhoto({ breed }) {
 }
 ```
 
-이 옵션을 켜면 loading값도 따라서 즉각 바뀝니다. 당신이 networkStatus값을 통해 더욱 정확한 데이터를 원하지 않는다 하더라도 loading값을 변합니다.
+이 옵션을 켜면 loading값도 따라서 즉각 바뀝니다. networkStatus값을 통해 더욱 정확한 데이터를 원하지 않는다 하더라도 loading값을 변합니다.
 networkStatus는 각기 다른 loading 상태를 나타내느 NetworkStatus enum값 중 하나입니다.
 Refetch는 NetworkStatus.refetch로 표현되고 이와 비슷하게 pooling이나 페이지네이션도 쓸 수 있습니다.
 
 ## 에러 상태값 감지하기
 
-당신은 errorPolicy라는 옵션을 useQuery 훅에 넘겨줌으로써 쿼리의 에러를 자유자재로 컨트롤할 수 있습니다.
+errorPolicy라는 옵션을 useQuery 훅에 넘겨줌으로써 쿼리의 에러를 자유자재로 컨트롤할 수 있습니다.
 default값은 'none'인데요, 이건 Apollo Client가 모든 graphql 에러를 실시간 에러로 받아들인다는 뜻입니다.
 이 경우에는 error값을 true로 처리해버리고 서버가 받아오는 모든 데이터를 버립니다.
 
-만약 당신이 errorPolicy를 'all'로 세팅하면 useQuery는 graphql 쿼리가 실패하더라도 데이터를 버리지 않습니다. 실패한 데이터 말고 남은 데이터라도 렌더링 하게 두는 것이죠.
+만약 errorPolicy를 'all'로 세팅하면 useQuery는 graphql 쿼리가 실패하더라도 데이터를 버리지 않습니다. 실패한 데이터 말고 남은 데이터라도 렌더링 하게 두는 것이죠.
 
 ## 쿼리를 능동적으로 실행시키기
 
@@ -229,7 +229,7 @@ function DelayedQuery() {
 
 ## 페치 정책 세팅하기
 
-기본값으로 useQuery 훅은 당신이 요청한 데이터가 이미 로컬에 있는지 캐시를 확인합니다. 만약 모든 데이터가 캐시에 저장되어 있다면 굳이 graphql 서버에 요청하지 않고 캐시 데이터를 보내줍니다. 이걸 **cache-first** 정책이라고 합니다. 기본 정책이기도 하죠.
+기본값으로 useQuery 훅은 요청한 데이터가 이미 로컬에 있는지 캐시를 확인합니다. 만약 모든 데이터가 캐시에 저장되어 있다면 굳이 graphql 서버에 요청하지 않고 캐시 데이터를 보내줍니다. 이걸 **cache-first** 정책이라고 합니다. 기본 정책이기도 하죠.
 이것 말고도 다른 정책을 선택할 수 있는데 다음 코드와 같이 옵셔널하게 fetchPolicy라는 옵션을 useQuery를 콜 할 때 넣어주면 됩니다.
 
 ```graphql
@@ -240,17 +240,17 @@ const { loading, error, data } = useQuery(GET_DOGS, {
 
 현재 Apollo Clinet가 제공하는 fetch-policy는 다음과 같습니다.
 
-[제목 없음](https://www.notion.so/5960e4a0fccb4ed08bd5f9b0f38d99ca)
+[fetch policy 리스트](https://www.notion.so/5960e4a0fccb4ed08bd5f9b0f38d99ca)
 
 ## useQuery API
 
 useQuery 훅에는 다음과 같은 옵션을 줄 수 있습니다.
 
-[제목 없음](https://www.notion.so/f8b56e3446644b3cb60636b236525a8f)
+[옵션 리스트](https://www.notion.so/f8b56e3446644b3cb60636b236525a8f)
 
 ## 결과값
 
-이렇게 다양한 API를 담아 useQuery 훅을 날리면 다음과 같은 property들을 담은 result 객체가 리턴된다. 이 객체는 당신의 쿼리 결과와 더불어 리페칭이나 동적 풀링, 페이지네이션과 관련된 함수들도 같이 준다.
+이렇게 다양한 API를 담아 useQuery 훅을 날리면 다음과 같은 property들을 담은 result 객체가 리턴된다. 이 객체는 쿼리 결과와 더불어 리페칭이나 동적 풀링, 페이지네이션과 관련된 함수들도 같이 준다.
 
 이쯤 했으면 useQuery 훅으로 어떻게 데이터를 가져오는지(Fetch) 이해하셨을겁니다.
 다음 시간에는 useMutation 훅으로 데이터를 업데이트(생성, 수정, 삭제)하는지 배워볼게요

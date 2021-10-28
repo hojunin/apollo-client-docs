@@ -10,7 +10,7 @@ sidebar_position: 1
 
 ---
 
-아폴로 클라이언트는 local(Cache)과 remote(Server)를 동시에 아우르는 JS를 위한상태 관리 라이브러리입니다. Apollo Client를 사용하여 데이터를 당겨오고, 수정하는 과정 속에서 당신의 웹앱의 UI가 자동으로 업데이트 됩니다.
+아폴로 클라이언트는 local(Cache)과 remote(Server)를 동시에 아우르는 JS를 위한상태 관리 라이브러리입니다. Apollo Client를 사용하여 데이터를 당겨오고, 수정하는 과정 속에서 웹앱의 UI가 자동으로 업데이트 됩니다.
 
 아폴로 클라이언트는 현대 개발 방식과 같이 효율적이고 예측 가능하면서 명확한 방식으로 코드를 구성할 수 있게 해줍니다. Apollo Client의 코어인 @apollo/client 라이브러리는 React와 다른 FE FrameWork(Vue, Angular..)들을 위한 기능들이 이미 구현되어 있습니다.
 
@@ -31,8 +31,8 @@ sidebar_position: 1
 
 -   **[쿼리](https://www.apollographql.com/docs/react/data/queries/)와[뮤테이션](https://www.apollographql.com/docs/react/data/mutations/)** : graphQL을 활용하여 데이터를 읽거나 쓰는 기능입니다.
 -   **[캐싱](https://www.apollographql.com/docs/react/caching/overview/)** : 아폴로 클라이언트의 데이터가 이미 로컬 캐시에 저장되어 있다면 서버를 거치지 않고 데이터를 읽어오는 정형화된 캐시입니다.
--   **[로컬 상태 관리](https://www.apollographql.com/docs/react/local-state/local-state-management/) :** 아폴로 클라이언트는 당신의 어플리케이션의 상태를 통합 관리할 수 있도록 서버(remote)와 캐시(local)에서 데이터를 관리할 수 있는 API를 제공합니다.
--   **[기본 HTTP 네트워킹](https://www.apollographql.com/docs/react/networking/basic-http-networking/)** : 당신의 쿼리에서 커스텀 헤더나 다른 인증 메타데이터를 보낼 수 있는지 배울 수 있는 페이지입니다.
+-   **[로컬 상태 관리](https://www.apollographql.com/docs/react/local-state/local-state-management/) :** 아폴로 클라이언트는 어플리케이션의 상태를 통합 관리할 수 있도록 서버(remote)와 캐시(local)에서 데이터를 관리할 수 있는 API를 제공합니다.
+-   **[기본 HTTP 네트워킹](https://www.apollographql.com/docs/react/networking/basic-http-networking/)** : 쿼리에서 커스텀 헤더나 다른 인증 메타데이터를 보낼 수 있는지 배울 수 있는 페이지입니다.
 -   **[리액트 컴포넌트 테스트하기](https://www.apollographql.com/docs/react/development-testing/testing/)** : 서버와의 통신 없이 GraphQL 동작을 시험해보세요
 
 ---

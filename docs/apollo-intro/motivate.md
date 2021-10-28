@@ -3,6 +3,8 @@ sidebar_position: 1
 title: 왜 꼭 아폴로인가요?
 ---
 
+---
+
 [Apollo Docs](https://www.apollographql.com/docs/react/why-apollo/)를 번역 및 의역한 내용입니다.
 
 ---
