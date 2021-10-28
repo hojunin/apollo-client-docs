@@ -5,19 +5,21 @@ authors: hojunin
 tags: [cache]
 ---
 
-# [Apollo Clinet Query - Cache & Network](https://medium.com/@galen.corey/understanding-apollo-fetch-policies-705b5ad71980)
-
-이 글은 위 블로그의 글을 의역 및 내용추가한 글입니다.
+이 글은 [이 블로그](https://medium.com/@galen.corey/understanding-apollo-fetch-policies-705b5ad71980)의 글을 의역 및 내용추가한 글입니다.
 
 Apollo Client는 굉장히 똑똑하게 자원을 관리하는데, 그 중 으뜸인 기능이 바로 Apollo Cache입니다. 왜냐하면 속도의 측면에서 다음과 같은 공식이 성립하기 때문에 그렇습니다.
 
-Network < Cache
+:::tip
 
-즉, 직접 서버에 call하는 동작보다 과거에 받았던 데이터를 잠깐 저장하는 cache에서 받아오는게 훨씬 빠릅니다.그렇게 좋은거면 항상 cache를 이용하면 되지 않을까요? 하지만 cache는 실제 데이터와의 괴리가 발생할 가능성이 있어 명확함을 요하는 부분에서는 사용해서는 안되고, 토큰같이 저장해선 안되는 데이터가 캐시에 저장되어있는 경우도 있으므로 개발 단계에서 이 부분을 신경써야 합니다.
+### Network < Cache
 
-Apollo는 그래서, 우리가 그 방식을 선택할 수 있게 fetching policy를 만들어 놓았습니다. 쿼리를 날리고 받은 결과값을 cache memory에 저장하고 나중에 똑같은 콜을 하면 불필요하게 서버에 다시 요청하지 않고 그냥 cache에 있는 결과값을 그대로 가져다 씁니다. 이를 fetch Policy라고 부르는데, 효율성을 위해 cache를 활용할지 network를 활용할 지 정하는 것입니다.
+:::
 
-![스크린샷 2021-09-19 오후 3.21.51.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c097d9b4-0ed1-4026-bf8f-6d5970742262/스크린샷_2021-09-19_오후_3.21.51.png)
+즉, 직접 서버에 호출하는 동작보다 과거에 받았던 데이터를 잠깐 저장하는 캐시에서 받아오는게 훨씬 빠릅니다.그렇게 좋은거면 항상 cache를 이용하면 되지 않을까요? 하지만 캐시는 실제 데이터와의 괴리가 발생할 가능성이 있어 명확함을 요하는 부분에서는 사용해서는 안되고, 토큰같이 저장해선 안되는 데이터가 캐시에 저장되어있는 경우도 있으므로 개발 단계에서 이 부분을 신경써야 합니다.
+
+그래서 아폴로에서는, 우리가 그 방식을 선택할 수 있게 `페칭 정책(fetching policy)`을 만들어 놓았습니다. 쿼리를 날리고 받은 결과값을 캐시에 저장하고 나중에 똑같은 콜을 하면 불필요하게 서버에 다시 요청하지 않고 그냥 cache에 있는 결과값을 그대로 가져다 씁니다. 이를 fetch Policy라고 부르는데, 효율성을 위해 cache를 활용할지 network를 활용할 지 정하는 것입니다.
+
+![스크린샷 2021-09-19 오후 3.21.51.png](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c097d9b4-0ed1-4026-bf8f-6d5970742262/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-19_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_3.21.51.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211028%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211028T124729Z&X-Amz-Expires=86400&X-Amz-Signature=bcada08114e3dc997990521a16a17e1949c6db0ec15612cae248aa55bf6738b6&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-19%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE%25203.21.51.png%22)
 
 위 사진을 보면 `useGetArticlesQuery`라는 쿼리를 날려서 데이터를 가져오려고 합니다. 이 때 Apollo Client는 Cache에 저장된 데이터를 긁어올지, 서버로 직접 콜을 날릴지에 대한 정책을 선택하게 되는데 그 선택지가 우측에 보이는 6가지 옵션들입니다.
 

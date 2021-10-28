@@ -95,7 +95,7 @@ npm start
 
 ## [3. 리액트 앱과 방금 만든 client](https://www.apollographql.com/docs/react/get-started/#3-connect-your-client-to-react) 인스턴스 연결하기
 
-React앱과 Apollo Client는 `ApolloProvider`컴포넌트로 연결됩니다. React의 `Context.Provider`와 비슷하죠? `ApolloProvider`는 당신의 리액트 앱을 `Context`로 감싸는 역할을 합니다. 그래서 전역에서 client객체에 접근할 수 있는거에요.(root DOM 트리를 감싸는 컨텍스트이기 때문에 전역에서 Apollo Client를 사용할 수 있습니다)
+React앱과 Apollo Client는 `ApolloProvider`컴포넌트로 연결됩니다. React의 `Context.Provider`와 비슷하죠? `ApolloProvider`는 리액트 앱을 `Context`로 감싸는 역할을 합니다. 그래서 전역에서 client객체에 접근할 수 있는거에요.(root DOM 트리를 감싸는 컨텍스트이기 때문에 전역에서 Apollo Client를 사용할 수 있습니다)
 
 `index.js`에서 React 앱을 `ApolloProvider`로 감싸주세요. gql을 사용하는 최상단 루트를 감싸라고 권고하지만 웬만하면 App.ts나 Router에서 감싸주시는게 좋습니다. (거의 전역에서 사용하도록)
 
@@ -129,7 +129,7 @@ render(
 
 ## [4. `useQuery`](https://www.apollographql.com/docs/react/get-started/#4-fetch-data-with-usequery)로 데이터 가져오기
 
-ApolloProvider가 잘 연결되었다면 이제 `useQuery`로 데이터를 가져오는 테스트가 가능합니다. useQuery는 GraphQL 데이터를 당신이 만든 UI에 전달하는 역할을 하는 리액트 훅입니다.
+ApolloProvider가 잘 연결되었다면 이제 `useQuery`로 데이터를 가져오는 테스트가 가능합니다. useQuery는 GraphQL 데이터를 UI에 전달하는 역할을 하는 리액트 훅입니다.
 
 index.js에서 테스트를 계속 이어나갑시다. 첫번째 쿼리를 gql 템플릿 리터럴로 감싸진 쿼리를 하나 정의합니다.
 
@@ -166,7 +166,7 @@ function ExchangeRates() {
 
 이 컴포넌트가 렌더링되는 시점에서 useQuery 훅은 자동으로 쿼리를 실행한 다음 리턴되는 결과값에서 `loading`, `error`, `data` 등의 데이터를 뽑아냅니다.
 
--   이는 Apollo Client가 쿼리의 에러나 로딩상태를 당신을 대신하여 추적해주고 있는 것이고 실제로 loading이나 error 필드를 확인해보면 알 있습니다.
+-   이는 Apollo Client가 쿼리의 에러나 로딩상태를 개발자를 대신하여 추적해주고 있는 것이고 실제로 loading이나 error 필드를 확인해보면 알 있습니다.
 -   쿼리의 결과는 `data`필드에서 확인할 수 있습니다.
 
 마지막에는 `ExchangeRates` 컴포넌트가 렌더링되며 컴포넌트 트리에 하나의 노드로 추가되는 것을 확인할 수 있습니다.

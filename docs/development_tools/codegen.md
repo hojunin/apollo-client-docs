@@ -7,7 +7,7 @@ title: 코드제너레이터(codegen)
 
 ---
 
-[Apollo Codegen](https://www.apollographql.com/docs/react/development-testing/developer-tooling/#apollo-codegen)를 번역 및 의역한 내용입니다 // [Youtube](https://www.youtube.com/watch?v=ZZrr82beJQk)
+[Apollo Codegen](https://www.apollographql.com/docs/react/development-testing/developer-tooling/#apollo-codegen)를 번역 및 의역한 내용입니다
 
 ---
 
@@ -25,7 +25,7 @@ npm install -g apollo-codegen
 yarn add global apollo-codegen
 ```
 
-### `[introspect-schema](https://www.apollographql.com/docs/react/development-testing/developer-tooling/#introspect-schema)`
+### introspect-schema
 
 introspect-schema의 목적은 주어진 graphql 스키마를 읽고(해당 서버에 정의된) [introspection](https://graphql-kr.github.io/learn/introspection/)(링크참조) JSON 파일을 만들어냅니다. 만들 때 로컬에 저장된 파일을 사용할 수도 있고, graphql서버에서 가져올 수도 있습니다. 이렇게 만들어진 introspect-schma 파일은 codegen을 할 때 필요합니다.
 
@@ -43,7 +43,7 @@ http 요청을 보낼 때 header 옵션을 추가해줘도 됩니다. 예를 들
 apollo-codegen introspect-schema schema.graphql --output schema.json
 ```
 
-### `[generate](https://www.apollographql.com/docs/react/development-testing/developer-tooling/#generate)`
+### generate
 
 `generate`라는 명령어는 schema에 적힌대로 쿼리와 뮤테이션을 위한 type을 만들어냅니다.
 
@@ -66,20 +66,21 @@ apollo-codegen generate **/*.graphql --schema schema.json --target flow --output
 apollo-codegen generate **/*.graphql --schema schema.json --target scala --output operation-result-types.scala
 ```
 
-### `[gql` template support](https://www.apollographql.com/docs/react/development-testing/developer-tooling/#gql-template-support)
+### gql` 템플릿 리터럴
 
 만약 소스파일이 js나 ts파일이라면 codegen은 gql tag template을 보고 타입이나 쿼리를 추론합니다. tag이름은 command line에서 —tag-name옵션으로 구별 가능합니다.
 
-### [.graphqlconfig support](https://www.apollographql.com/docs/react/development-testing/developer-tooling/#graphqlconfig-support)
+### .graphqlconfig
 
 사용할 graphql schema를 선택할 때 —schem 옵션을 사용하는 대신에 .graphqlconfig 파일에 적어둘 수도 있습니다. 여러 종류의 스키마 .graphqlconfig파일에 명시해둔 경우 —project-name 옵션으로 어떤 스키마를 적용할 지 선택할 수 있는 것입니다.
 
-### [Typescript나 Flow](https://www.apollographql.com/docs/react/development-testing/developer-tooling/#typescript-and-flow)를 사용한다면?
+### Typescript나 Flow를 사용한다면?
 
 만약 apollo graphql을 typescript나 flow를 사용한다면 모든 graphql selection set에 \_\_typename을 추가해줘야 한다는 점을 명심하세요.
 
-\*selection set : graphql의 리턴값에서 원하는 필드를 고를 때 여는 중괄호와 그 내용이라고 이해하면 됩니다.
-
+:::info
+selection set : graphql의 리턴값에서 원하는 필드를 고를 때 여는 중괄호와 그 내용이라고 이해하면 됩니다.
+:::
 `@apollo/client`를 사용중이라면 `apollo-codegen`에 `—addTypename`만 붙혀준다면 모든 graphql 동작에 대해 자동으로 `__tyepname`을 추가해줍니다. 이 과정은 `GraphQLUnionType`과 `GraphQLInterfaceType`을 정확하게 묘사할 수 있기 때문에 꼭 필요합니다.
 
 **왜 `__typename` 필드가 필요한걸까요?**
