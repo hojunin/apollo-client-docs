@@ -1,12 +1,13 @@
 ---
-slug: first-blog-post
-title: First Blog Post
+slug: welcome
+title: 환영합니다
 authors:
     name: hojunin
-    title: 하하하
-    url: https://github.com/wgao19
-    image_url: https://github.com/wgao19.png
-tags: [hola, docusaurus]
+    title: Hojun
+    url: https://github.com/hojunin
+tags: [Apollo]
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet
+# 첫번째 게시글입니다.
+
+이 블로그에는 아폴로와 관련된 다른 블로그 글이나 공식 블로그 글들이 번역되어 올라갑니다 🙂

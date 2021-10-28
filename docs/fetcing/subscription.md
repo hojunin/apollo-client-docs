@@ -7,13 +7,11 @@ title: 구독(Subscription)
 
 ---
 
-> GraphQL 서버 데이터를 실시간으로 업데이트
-
 [Apollo Docs](https://www.apollographql.com/docs/react/data/subscriptions/)를 번역 및 의역한 내용입니다.
 
 ---
 
-[queries](https://www.apollographql.com/docs/react/data/queries/) and [mutations](https://www.apollographql.com/docs/react/data/mutations/) 과 함께 GraphQL은 3번째로 Subscription이라는 기능을 제공합니다.
+GraphQL은 [queries](https://www.apollographql.com/docs/react/data/queries/) and [mutations](https://www.apollographql.com/docs/react/data/mutations/)에 이어 3번째로 Subscription이라는 기능을 제공합니다.
 
 query나 mutation처럼 subscription도 graphql server로부터 데이터를 가져오는(fetch) 기능을 합니다. 하지만 query와는 다르게 subscription은 오래 지속되면서 변화하는 결과값을 계속 보내줍니다. 대부분 웹소켓을 사용하여 graphql 서버와 연결을 유지하고 서버가 변경된 사항을 추적하여 해당 사항을 클라이언트로 쏴줍니다(push)
 
@@ -27,7 +25,6 @@ Subscription은 클라이언트에 알림을 보내는 작업과 같이 실시�
 
 -   큰 객체에서 작은 변화를 감지할 때. 큰 데이터에서 작은 데이터 변화를 감지하려고 1초에 1회씩 서버를 호출한다고 생각해보면, 가져오는 객체가 거대하기 때문에 손해입니다. 대신에, 일단 객체의 최초 상태를 쿼리로 가져오고 나머지 업데이트 과정은 서버가 바뀐 field만 내려보내(push) 줄겁니다.
 -   호출시간이 작고 실시간 업데이트가 필요한 작업을 할 때. 예를 들어 채팅이 있겠습니다. 엄청냔 량의 대화 데이터 리스트 중 하나가 새로 추가된다고 생각해봅시다. refetching은 애초에 데이터가 왔는지도 모르니 사용할 수 없고, polling은 너무 부하가 큽니다.
--   ***
 
 ## Subsciprion 정의하기
 
@@ -79,13 +76,11 @@ GQL 서버가 데이터를 보내기(push) 시작하면 그 데이터는 아래�
 
 ---
 
-## [S](https://www.apollographql.com/docs/react/data/subscriptions/#setting-up-the-transport)ubscirption을 위한 준비
+## [Subscription](https://www.apollographql.com/docs/react/data/subscriptions/#setting-up-the-transport)을 위한 준비
 
-Because subscriptions usually maintain a persistent connection, they shouldn't use the default HTTP transport that Apollo Client uses for queries and mutations. Instead, Apollo Client subscriptions most commonly communicate over WebSocket, via the community-maintained library.
+Subscription이 지속적으로 서버와 연결을 해야하는 특성 때문에 query나 mutation을 위해 사용했던 기본 HTTP 통신을 쓸 수 없습니다. 그 대신에 Apollo Client Subscription은 가장 잘 알려진 실시간 통신 방식인 WebSocket을 쓰겠습니다([subscriptions-transport-ws](https://github.com/apollographql/subscriptions-transport-ws))
 
-Subscription이 지속적으로 서버와 연결을 해야하는 특성 때문에 query나 mutation을 위해 사용했던 기본 HTTP 통신을 쓸 수 없습니다. 그 대신에 Apollo Client Subscription은 가장 잘 알려진 실시간 통신 방식인 WebSocket을 쓰겠습니다(`[subscriptions-transport-ws](https://github.com/apollographql/subscriptions-transport-ws)` )
-
-### [1](https://www.apollographql.com/docs/react/data/subscriptions/#1-install-required-libraries). 필요한 패키지를 설치합니다.
+### 1.필요한 패키지를 설치합니다.
 
 [Apollo Link](https://www.apollographql.com/docs/react/api/link/introduction/) 는 Apollo Client의 네트워크 관리를 도와주는 라이브러리입니다. 권고사항입니다.
 
@@ -95,7 +90,7 @@ WebSocket으로 Subscription을 이용하려면 우리 link chain에 WebSoketLin
 npm install subscriptions-transport-ws
 ```
 
-### [2](https://www.apollographql.com/docs/react/data/subscriptions/#2-initialize-a-websocketlink). WebSocketLink를 초기화합니다.
+### 2. WebSocketLink를 초기화합니다.
 
 ApolloClient를 생성했던 파일(index.js)에 WebSocketLink 객체를 생성하고 초기화합니다
 
@@ -113,7 +108,7 @@ const wsLink = new WebSocketLink({
 
 여기서 ApolloClient 객체의 uri와 다른점은 GraphQL서버의 ws://로 시작하는 subscription 전용 엔드포인트를 넣어주셔야 한다는 점입니다. Apollo Server를 사용중이라면 이 [독스](https://www.apollographql.com/docs/apollo-server/data/subscriptions/#setting-a-subscription-endpoint)를 참고해주세요
 
-### [3. Split communication by operation (recommended)](https://www.apollographql.com/docs/react/data/subscriptions/#3-split-communication-by-operation-recommended)
+### 3. Split communication by operation (recommended)
 
 Although Apollo Client *can* use your `WebSocketLink` to execute all operation types, in most cases it should continue using HTTP for queries and mutations. This is because queries and mutations don't require a stateful or long-lasting connection, making HTTP more efficient and scalable if a WebSocket connection isn't already present.
 

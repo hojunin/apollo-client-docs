@@ -1,15 +1,9 @@
 ---
-slug: long-blog-post
-title: Long Blog Post
+slug: apollo-fetch-policy
+title: 아폴로 캐시정책(fetchPolicy)
 authors: hojunin
-tags: [hello, docusaurus]
+tags: [cache]
 ---
-
-This is the summary of a very long blog post,
-
-Use a `<!--` `truncate` `-->` comment to limit blog post size in the list view.
-
-<!--truncate-->
 
 # [Apollo Clinet Query - Cache & Network](https://medium.com/@galen.corey/understanding-apollo-fetch-policies-705b5ad71980)
 

@@ -7,6 +7,10 @@ title: 캐시에 읽고 쓰기
 
 ---
 
+[Apollo Docs](https://www.apollographql.com/docs/react/caching/cache-interaction/)를 번역 및 의역한 내용입니다.
+
+---
+
 Apollo Client가 매 요청마다 Graphql Server에 다녀오지 않고도 데이터를 fetch할 수 있는 이유가 Cache때문이라고 말했는데, Cache에도 허점이 있습니다. 무결하지 않다는 점입니다. 서버의 데이터는 항상 옳지만 Cache의 데이터는 항상 옳다고는 누구도 보장해주지 않기 때문입니다.
 
 하물며 자동으로 업데이트해주는 cache도 무결하지 않은데, 개발자가 직접 cache를 읽고 쓰는 과정을 여러번 반복한 cache는 얼마나 dirty한 상태일까요. 그래서 cache를 읽고 쓰는 행위는 Server에서 정의된 type과 client에서 정의한 document를 기반으로 명확하게 진행되어야 합니다. 그 과정을 이 문서에서 다루겠습니다.
