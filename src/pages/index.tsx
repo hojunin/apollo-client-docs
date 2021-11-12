@@ -26,7 +26,7 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout title={`${siteConfig.title}`} description="Description will go into a meta tag in <head />">
+    <Layout title={`${siteConfig.title}`} description="아폴로 클라이언트 번역사이트입니다. <head />">
       <HomepageHeader />
       {/* <main>
                 <HomepageFeatures />

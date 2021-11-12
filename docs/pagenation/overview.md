@@ -13,9 +13,9 @@ GrqphQL은 그래프(grqph 이론의 Node와 Edge로 이루어진 그래프입�
 
 ```graphql
 query GetBookTitles {
-    books {
-        title
-    }
+  books {
+    title
+  }
 }
 ```
 
@@ -23,7 +23,7 @@ query GetBookTitles {
 
 클라이언트가 이 리스트를 페이지네이션 할 때, 서버는 일정한 부분만큼만 리턴해줍니다(1페이지 분량) 클라이언트의 쿼리는 몇 페이지를 리턴해야할 지 쿼리를 보낼 때 알려줘야합니다.
 
-![https://postfiles.pstatic.net/MjAyMTA0MDNfMTI2/MDAxNjE3NDMyNzk3MTQy.fMxoKqHcSDR1Fe9L7VVJsGYlQTrolw1c8aFs2SJkTdUg.MrnugL_g_3AGk0Oc0k88W_fDzHPDbQG9lm_Z3aKJYR8g.PNG.dlsghwns/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-04-03_%EC%98%A4%ED%9B%84_3.53.13.png?type=w773](https://postfiles.pstatic.net/MjAyMTA0MDNfMTI2/MDAxNjE3NDMyNzk3MTQy.fMxoKqHcSDR1Fe9L7VVJsGYlQTrolw1c8aFs2SJkTdUg.MrnugL_g_3AGk0Oc0k88W_fDzHPDbQG9lm_Z3aKJYR8g.PNG.dlsghwns/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2021-04-03_%EC%98%A4%ED%9B%84_3.53.13.png?type=w773)
+![pagination](https://drive.google.com/file/d/1Gs1kEcR8GEF3JSDWZtJfAfQWRyCiSDwq/view?usp=sharing)
 
 Apollo Client 공식문서에서 설명한 자료입니다.
 
