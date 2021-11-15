@@ -15,7 +15,7 @@ title: 가비지 컬랙션
 
 > 아래에 나오는 모든 메소드는 아폴로 클라이언트 객체(client)가 아닌 캐시 객체(cache)에서 직접 호출할 수 있습니다.
 
-## `[cache.gc()](https://www.apollographql.com/docs/react/caching/garbage-collection/#cachegc)`
+## cache.gc()
 
 접근이 불가능한(not reachable) 캐시 데이터를 gc 메소드로 모두 삭제할 수있습니다.
 
@@ -123,9 +123,9 @@ new InMemoryCache({
 - 첫번째 예시로 Query의 ruler필드에 대한 read 함수는 canRead함수로 현재 객체가 허상포인터가 아니면 그대로 리턴하고, 허상포인터면 toReference를 통해 기본값을 리턴합니다.
 - 두번째는 Deity객체의 offspring 필드에 대한 read함수는 canRead함수가 true인(reachable한) 값만 필터링해서 리턴합니다.
 
-<aside>
+:::tip
 💁🏻‍♂️ 허상 포인터를 필터링해서 캐시 목록에서 지워버리는 것은 기본 read 함수가 자동으로 처리해줄만큼 당연한 동작입니다. 그래서 read함수를 정의하면 이 동작을 덮어쓸 수 있습니다.
 
-</aside>
+:::
 
 아폴로에는 특정 필드에 대한 허상 포인터를 다룰 수 있는 방법이 없기 때문에 read함수를 커스터마이징해서 사용해야만합니다.
