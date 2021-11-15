@@ -7,16 +7,13 @@ title: 캐시를 더욱 똑똑하게 사용하기(Advanced)
 
 ---
 
-<aside>
-🧹 [Apollo Docs](https://www.apollographql.com/docs/react/caching/advanced-topics/)를 번역 및 의역한 내용입니다.
-
-</aside>
+[Apollo Docs](https://www.apollographql.com/docs/react/caching/advanced-topics/)를 번역 및 의역한 내용입니다.
 
 ---
 
 이 문서에서는 아폴로 캐시를 사용할 때 참고하면 좋을 이슈들을 소개합니다.
 
-## [불필요한 캐시는 사용하지 않기](https://www.apollographql.com/docs/react/caching/advanced-topics/#bypassing-the-cache)
+## 불필요한 캐시는 사용하지 않기
 
 캐시는 좋은 기능이지만 딱히 쓰지 않아도 될 때가 있습니다. 예를 들어 딱 한번만 사용되고 마는 token을 받는 쿼리가 있을 수 있습니다. 이럴 땐 fetchPolicy를 `no-cache`로 지정해주세요
 
@@ -51,7 +48,9 @@ persistCache({
 });
 ```
 
+:::info
 persistCache에 대한 더 다양한 사용방법에 대해서는 [README of `apollo3-cache-persist`](https://github.com/apollographql/apollo-cache-persist)를 참고하세요!
+:::
 
 ## 캐시 리셋하기
 
@@ -69,7 +68,9 @@ export default withApollo(
 );
 ```
 
-> Tip : 활성쿼리를 리페칭하는 과정 없이 캐시를 비우고 싶다면 client.clearStore()를 사용하면 됩니다.
+:::tip
+Tip : 활성쿼리를 리페칭하는 과정 없이 캐시를 비우고 싶다면 client.clearStore()를 사용하면 됩니다.
+:::
 
 ### 캐시 리셋 후 동작 설정하기
 
