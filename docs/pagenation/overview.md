@@ -23,7 +23,7 @@ query GetBookTitles {
 
 클라이언트가 이 리스트를 페이지네이션 할 때, 서버는 일정한 부분만큼만 리턴해줍니다(1페이지 분량) 클라이언트의 쿼리는 몇 페이지를 리턴해야할 지 쿼리를 보낼 때 알려줘야합니다.
 
-![pagination](https://drive.google.com/file/d/1Gs1kEcR8GEF3JSDWZtJfAfQWRyCiSDwq/view?usp=sharing)
+![Example banner](./pagination_overview.png)
 
 Apollo Client 공식문서에서 설명한 자료입니다.
 
