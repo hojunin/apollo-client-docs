@@ -123,7 +123,7 @@ function DogPhoto({ breed }) {
 위 코드를 보면, pollInterval을 500으로 세팅함으로써 현재 품종의 강아지 사진을 서버에서 0.5초마다 한번씩 받아옵니다.
 주의할 점은 만약 완벽한 실시간을 원해서 pollInterval을 0으로 세팅하면 풀링이 발생하지 않는다는 점입니다.
 
--   startPolling과 stopPolling이라는 옵션을 추가로 부여해서 동적으로 쿼리를 시작하고 종료시킬 수도 있습니다.
+- startPolling과 stopPolling이라는 옵션을 추가로 부여해서 동적으로 쿼리를 시작하고 종료시킬 수도 있습니다.
 
 ## **리페치(Refetch)**
 
@@ -238,19 +238,43 @@ const { loading, error, data } = useQuery(GET_DOGS, {
 });
 ```
 
-현재 Apollo Clinet가 제공하는 fetch-policy는 다음과 같습니다.
+현재 Apollo Client가 제공하는 fetch-policy는 다음과 같습니다.
 
-[fetch policy 리스트](https://www.notion.so/5960e4a0fccb4ed08bd5f9b0f38d99ca)
+| 정책 이름         | 설명                                                                                                                                                                                                                                          |
+| :---------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| cache-first       | Apollo Clinet가 cache를 먼저 확인합니다. 만약 요청한 모든 데이터가 캐시에 존재한다면 그냥 그 데이터를 리턴해줍니다. 그렇지 않으면 graphQL서버에 요청해서 받아 넘겨줍니다.                                                                     |
+| cache-only        | Apollo Client가 캐시만 확인합니다. 요청한 모든 데이터를 캐시에서 확인했을 때 만약 하나라도 없다면 Apollo Clinet는 error를 뱉습니다.                                                                                                           |
+| cache-and-network | Apollo Client가 캐시와 gql 서버 둘다 쿼리합니다. 쿼리는 자동으로 캐시를 업데이트합니다. 서버 데이터와 캐시된 데이터의 싱크를 맞춰주면서도 빠른 응답속도를 제공합니다.                                                                         |
+| network-only      | Apollo Clinet는 먼저 graphql 서버에 데이터를 요청합니다. 그리고 cache에 그 데이터를 업데이트합니다. 이 정책은 서버 데이터를 가져오기 때문에 정확하지만 정작 캐시에 그 데이터가 있음에도 불구하고 서버를 다녀오기 때문에 비효율일 수 있습니다. |
+| no-cache          | network-only와 비슷하지만 쿼리 결과가 캐시에 저장되지 않는다는 차이점이 있습니다.                                                                                                                                                             |
+| standby           | 특정 값이 변했을 때 자동으로 데이터를 업데이트하지 않는다라는 사실을 제외하면 cache-first와 비슷한 로직입니다. 당신은 능동적으로(버튼같은거 눌러서) 리페치를 하던가 update쿼리를 날려서 값을 최신화 해야됩니다.                               |
 
 ## useQuery API
 
 useQuery 훅에는 다음과 같은 옵션을 줄 수 있습니다.
 
-[옵션 리스트](https://www.notion.so/f8b56e3446644b3cb60636b236525a8f)
+| 옵션                        | 타입                         | 설명                                                                                                                                                                                                                                                           |
+| --------------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| query                       | DocumentNode                 |                                                                                                                                                                                                                                                                |
+| variables                   | {[key:string]:any}           | 쿼리가 필요로하는 모든 데이터를 담은 변수 객체                                                                                                                                                                                                                 |
+| pollInterval                | number                       | 데이터를 풀링할 주기, ms단위로 써줘야 함. default는 0이며 0이면 풀링 안함                                                                                                                                                                                      |
+| notifyOnNetworkStatusChange | boolean                      | networkStatus에 따라 렌더링할 지 안할지. default는 false (위에 설명 되어있음)                                                                                                                                                                                  |
+| fetchPolicy                 | FetchPolicy                  | Apollo cache를 얼마나 사용할지. 정책에대한 설명은 위에 자세히 해놓았음                                                                                                                                                                                         |
+| nextFetchPolicy             | FetchPolicy                  | 쿼리를 한번 실행하고 다음 실행할 때의 FetchPolicy를 정함. cache-and-network나 network-only로 일단 실행하고 cache-first로 돌아갈 때 유용하다                                                                                                                    |     |
+| errorPolicy                 | ErrorPolicy                  | 쿼리의 결과로 나오는 에러를 어떻게 처리할지. default는 'none'이고 이는 gql 에러는 런타임 에러이기때문에 어떤 데이터도 주지 않는다. (위에 잘 설명해놨음)                                                                                                        |     |
+| ssr                         | boolean                      | 서버쪽 렌더링 시에는 쿼리를 스킵할지                                                                                                                                                                                                                           |
+| displayName                 | string                       | React devTools에 뭐라고 나올지. Default는 'Query'                                                                                                                                                                                                              |
+| skip                        | boolean                      | 만약 skip값이 true면 쿼리는 스킵된다(Call 안됨). useLazeQuery에선 못씀.                                                                                                                                                                                        |
+| onComplelted                | data: TData\|{} => void      | 쿼리가 성공적으로 결과를 가지고 돌아왔을 때(error가 false일 때) 콜백으로 실행할 함수                                                                                                                                                                           |
+| onError                     | (error: ApolloError) => void | 위와 반대로 error가 true일 때 실행할 콜백함수                                                                                                                                                                                                                  |
+| context                     | Record<string, any>          | 컴포넌트와 네트워크 간 공유되는 context                                                                                                                                                                                                                        |
+| partialRefetch              | boolean                      | 만약 이 값이 true면 쿼리의 결과로 받은 값이 부분적이라면 리패치합니다. 그렇게 받은 data는 Apollo Client QueryManager에 의해 텅 빈 객체로 초기화된다. partialRefetch는 백엔드쪽 호환성 이슈 때문에 default가 false지만 대부분의 경우에서 true로 바꾸는게 타당함 |     |
+| client                      | ApolloClient                 | ApolloClinet 인스턴스. useQuery나 Query는 context를 통해 건네받아 사용한다. 하지만 다른 클라이언트를 사용할꺼면 여기에서 명시적으로 넘겨줘야한다.                                                                                                              |
+| returnPartialData           | boolean                      | 캐시에 요청한 모든 데이터가 없더라도, 그 부분만이라도 넘겨받을지. default는 false                                                                                                                                                                              |
 
 ## 결과값
 
-이렇게 다양한 API를 담아 useQuery 훅을 날리면 다음과 같은 property들을 담은 result 객체가 리턴된다. 이 객체는 쿼리 결과와 더불어 리페칭이나 동적 풀링, 페이지네이션과 관련된 함수들도 같이 준다.
+이렇게 다양한 API를 담아 useQuery 훅을 날리면 다음과 같은 property들을 담은 result 객체가 리턴됩니다. 이 객체는 쿼리 결과와 더불어 리페칭이나 동적 풀링, 페이지네이션과 관련된 함수들도 같이 반환해줍니다.
 
-이쯤 했으면 useQuery 훅으로 어떻게 데이터를 가져오는지(Fetch) 이해하셨을겁니다.
-다음 시간에는 useMutation 훅으로 데이터를 업데이트(생성, 수정, 삭제)하는지 배워볼게요
+이로써 Query에 대한 설명은 끝났습니다.useQuery 훅으로 어떻게 데이터를 가져오는지(Fetch)에 대해 이해하셨으리라 생각됩니다.
+다음 시간에는 useMutation 훅으로 데이터를 업데이트(생성, 수정, 삭제)하는지 배워보겠습니다.
