@@ -294,8 +294,6 @@ const [mutateFunction, {data, loading ...}] = useMutation(MUTATION_DOCS, {...opt
 | called  | boolean      | mutation 함수가 실행될 때 true가 됩니다                                                                                        |
 | client  | ApolloClient | ApolloClient 인스턴스. client.writeData나 client.readQuery같은 캐시 메소드를 update function 외 지역에서 수행할 때 유용합니다. |
 
-useQuery와 useMutation 훅은 graphQL을 원활하게 사용하기 위한 Apollo Clients의 핵심 API다. 이제 많이 익숙해졌으리라 믿는다. 이제 Optimistic UI나 Local State같은 Apollo Client가 제공하는 특별한 기능을 공부해봅시다.
-
 ## 글을 마치며
 
 useQuery와 useMutation 훅은 graphQL을 원활하게 사용하기 위한 Apollo Clients의 핵심 API입니다. 이제 많이 익숙해졌을겁니다.
