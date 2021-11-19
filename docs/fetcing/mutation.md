@@ -267,7 +267,7 @@ useMutation을 콜할 때 대부분의 옵션들은 생략해도 좋습니다. �
 | onComplete          | (data: TData) => void                           | mutation이 성공적으로 실행되면 콜백 함수                                                        |
 | onError             | (error: ApolloError) => void                    | mutation이 실패하면 실행되는 콜백함수                                                           |
 | context             | Record<string,any>                              | 컴포넌트와 네트워크 사이에서 공유되는 컨텍스트.                                                 |
-| client              | ApolloClinet                                    | ApolloClinet 인스턴스. 다른 클라이언트를 넣어줘야 하는 상황이 아니면 provider의 client를 쓴다.  |
+| client              | ApolloClient                                    | ApolloClient 인스턴스. 다른 클라이언트를 넣어줘야 하는 상황이 아니면 provider의 client를 쓴다.  |
 
 ## useMutation Response
 
@@ -278,9 +278,9 @@ useMutation Response값은 배열 형태로 받을 수 있는데, mutate functio
 const [mutateFunction, {data, loading ...}] = useMutation(MUTATION_DOCS, {...options})
 ```
 
-|        |                                                                                      |                                                                                      |
-| ------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
-| mutate | UI에서 mutaion을 실행하는 함수. variables, refetchQueries같은 옵션을 넣을 수도 있다. | UI에서 mutaion을 실행하는 함수. variables, refetchQueries같은 옵션을 넣을 수도 있다. |
+|        |                                                                                       |                                                                                       |
+| ------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| mutate | UI에서 mutation을 실행하는 함수. variables, refetchQueries같은 옵션을 넣을 수도 있다. | UI에서 mutation을 실행하는 함수. variables, refetchQueries같은 옵션을 넣을 수도 있다. |
 
 다음은 결과(Result) 객체의 필드들입니다.
 
@@ -292,9 +292,9 @@ const [mutateFunction, {data, loading ...}] = useMutation(MUTATION_DOCS, {...opt
 | loading | boolean      | mutation의 현재 진행상태를 보여주는 boolean값                                                                                |
 | error   | ApolloError  | 만약 mutation이 서버에 갔다가 실패하고 돌아오면 이유와 함께 에러를 뱉는다.                                                   |
 | called  | boolean      | mutation 함수가 실행될 때 true가 된다                                                                                        |
-| client  | ApolloClinet | ApolloClinet 인스턴스. client.writeData나 client.readQuery같은 캐시 메소드를 update function 외 지역에서 수행할 때 유용하다. |
+| client  | ApolloClient | ApolloClient 인스턴스. client.writeData나 client.readQuery같은 캐시 메소드를 update function 외 지역에서 수행할 때 유용하다. |
 
-useQuery와 useMutation 훅은 grpahQL을 원활하게 사용하기 위한 Apollo Clients의 핵심 API다. 이제 많이 익숙해졌으리라 믿는다. 이제 Optimistic UI나 Local State같은 Apollo Client가 제공하는 특별한 기능을 공부해봅시다.
+useQuery와 useMutation 훅은 graphQL을 원활하게 사용하기 위한 Apollo Clients의 핵심 API다. 이제 많이 익숙해졌으리라 믿는다. 이제 Optimistic UI나 Local State같은 Apollo Client가 제공하는 특별한 기능을 공부해봅시다.
 
 ## 글을 마치며
 
