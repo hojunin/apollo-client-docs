@@ -5,7 +5,7 @@ title: 페이지네이션 알아보기
 
 # 페이지네이션 살펴보기
 
-이 글은 [Apollo Client 공식문서](https://www.apollographql.com/docs/react/pagination/overview/)를 해석 및 개인적인 의견을 추가한 것입니다.
+[Apollo Docs](https://www.apollographql.com/docs/react/pagination/overview/)를 해석 및 개인적인 의견을 추가한 것입니다.
 
 GraphQL 그래프(graph 이론의 Node와 Edge로 이루어진 그래프입니다)처럼 쓸데없는 일(Overhead) 없이 정확하게 원하는 데이터만을 가져올 수 있도록 해줍니다. 그 결과 네트워크 응답속도를 빠르게 합니다.
 

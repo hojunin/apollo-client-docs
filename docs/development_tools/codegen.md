@@ -7,7 +7,7 @@ title: 코드제너레이터(codegen)
 
 ---
 
-[Apollo Codegen](https://www.apollographql.com/docs/react/development-testing/developer-tooling/#apollo-codegen)를 번역 및 의역한 내용입니다
+[Apollo Docs](https://www.apollographql.com/docs/react/development-testing/developer-tooling/#apollo-codegen)를 번역 및 의역한 내용입니다
 
 ---
 
@@ -125,18 +125,18 @@ Apollo Codegen은 위의 쿼리를 다음과 같은 타입으로 정의합니다
 
 ```tsx
 export type CharactersQuery = {
-    characters: Array<
-        | {
-              __typename: 'Human';
-              name: string;
-              homePlanet: ?string;
-          }
-        | {
-              __typename: 'Droid';
-              name: string;
-              primaryFunction: ?string;
-          }
-    >;
+  characters: Array<
+    | {
+        __typename: "Human";
+        name: string;
+        homePlanet: ?string;
+      }
+    | {
+        __typename: "Droid";
+        name: string;
+        primaryFunction: ?string;
+      }
+  >;
 };
 ```
 

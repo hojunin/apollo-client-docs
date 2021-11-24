@@ -9,6 +9,8 @@ title: Apollo 인증방식
 
 [Apollo Docs](https://www.apollographql.com/docs/react/networking/authentication/)를 번역 및 의역한 내용입니다.
 
+---
+
 우리가 활용하는 모든 데이터가 개방되어있다고 하더라도 서비스되는 어플리케이션의 측면에서는 사용자나 계정, 권한과 같은 민감한 사안들이 있습니다. 만약 우리 서비스에서 다양한 유저들이 각기 다른 권한을 가지고 있다고 한다면 우리는 서버에 요청을 보낼 때마다 해당 유저가 어떤 권한을 가진 유저인지를 알려줄 필요가 있습니다. Apollo Client는 인증의 측면에서 정말 유연하게 사용할 수 있는 Apollo Link를 기본적으로 제공합니다.
 
 Apollo Client에서 인증을 구현하는 방식은 2가지가 있습니다. 첫번째는 Cookie를 활용하는 방식이고 두번째는 Header를 활용하는 방식입니다.
@@ -19,13 +21,13 @@ Apollo Client에서 인증을 구현하는 방식은 2가지가 있습니다. �
 
 ```tsx
 const link = createHttpLink({
-    uri: '/graphql',
-    credentials: 'same-origin',
+  uri: "/graphql",
+  credentials: "same-origin",
 });
 
 const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link,
+  cache: new InMemoryCache(),
+  link,
 });
 ```
 
@@ -36,8 +38,8 @@ const client = new ApolloClient({
 ```tsx
 // enable cors
 var corsOptions = {
-    origin: '<insert uri of front-end domain>',
-    credentials: true, // <-- REQUIRED backend setting
+  origin: "<insert uri of front-end domain>",
+  credentials: true, // <-- REQUIRED backend setting
 };
 app.use(cors(corsOptions));
 ```
@@ -47,28 +49,28 @@ app.use(cors(corsOptions));
 흔히 쓰이는 다른 방법 중 하나는 http로 요청을 보낼 때 header에 스스로를 인증하는 방법입니다. 모든 HTTP요청에 authorization 헤더를 담아서 Apollo Link에 담아 보내는 방식입니다. 아래 예시는 어떤 요청dmf 보낼 때마다 LocalStorage에서 Token을 꺼내서 헤더에 담아 보내는 과정입니다.
 
 ```tsx
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
-    uri: '/graphql',
+  uri: "/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
-    // LocalStorage에서 미리 저장해둔 토큰을 꺼내옵니다.
-    const token = localStorage.getItem('token');
-    // 만약 저장해둔게 없다면 비워두고 있으면 헤더에 토큰을 실어 보냅니다.
-    return {
-        headers: {
-            ...headers,
-            authorization: token ? `Bearer ${token}` : '',
-        },
-    };
+  // LocalStorage에서 미리 저장해둔 토큰을 꺼내옵니다.
+  const token = localStorage.getItem("token");
+  // 만약 저장해둔게 없다면 비워두고 있으면 헤더에 토큰을 실어 보냅니다.
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
 });
 
 const client = new ApolloClient({
-    link: authLink.concat(httpLink),
-    cache: new InMemoryCache(),
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
 });
 ```
 
@@ -82,48 +84,48 @@ Apollo가 모든 쿼리 결과값을 캐싱하기 시작한 이래로 사용자�
 
 ```tsx
 const PROFILE_QUERY = gql`
-    query CurrentUserForLayout {
-        currentUser {
-            login
-            avatar_url
-        }
+  query CurrentUserForLayout {
+    currentUser {
+      login
+      avatar_url
     }
+  }
 `;
 
 function Profile() {
-    const {
-        client,
-        loading,
-        data: { currentUser },
-    } = useQuery(PROFILE_QUERY, { fetchPolicy: 'network-only' });
+  const {
+    client,
+    loading,
+    data: { currentUser },
+  } = useQuery(PROFILE_QUERY, { fetchPolicy: "network-only" });
 
-    if (loading) {
-        return <p className="navbar-text navbar-right">Loading...</p>;
-    }
+  if (loading) {
+    return <p className="navbar-text navbar-right">Loading...</p>;
+  }
 
-    if (currentUser) {
-        return (
-            <span>
-                <p className="navbar-text navbar-right">
-                    {currentUser.login}
-                    &nbsp;
-                    <button
-                        onClick={() => {
-                            // call your auth logout code then reset store
-                            App.logout().then(() => client.resetStore());
-                        }}
-                    >
-                        Log out
-                    </button>
-                </p>
-            </span>
-        );
-    }
-
+  if (currentUser) {
     return (
+      <span>
         <p className="navbar-text navbar-right">
-            <a href="/login/github">Log in with GitHub</a>
+          {currentUser.login}
+          &nbsp;
+          <button
+            onClick={() => {
+              // call your auth logout code then reset store
+              App.logout().then(() => client.resetStore());
+            }}
+          >
+            Log out
+          </button>
         </p>
+      </span>
     );
+  }
+
+  return (
+    <p className="navbar-text navbar-right">
+      <a href="/login/github">Log in with GitHub</a>
+    </p>
+  );
 }
 ```

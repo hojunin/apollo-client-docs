@@ -7,13 +7,15 @@ title: 가비지 컬랙션
 
 ---
 
-[이 링크를 번역했습니다.](https://www.apollographql.com/docs/react/caching/garbage-collection/)
+[Apollo Docs](https://www.apollographql.com/docs/react/caching/garbage-collection/)를 번역했습니다.
 
 ---
 
 아폴로 클라이언트는 더이상 사용하지 않는 캐시 데이터를 삭제할 수 있게 해줍니다. 기본적으로 gc메소드를 호출해서 사용하면 되지만 더 세밀한 컨트롤을 위해 evict 메소드도 활용할 수 있습니다.
 
-> 아래에 나오는 모든 메소드는 아폴로 클라이언트 객체(client)가 아닌 캐시 객체(cache)에서 직접 호출할 수 있습니다.
+:::info
+아래에 나오는 모든 메소드는 아폴로 클라이언트 객체(client)가 아닌 캐시 객체(cache)에서 직접 호출할 수 있습니다.
+:::
 
 ## cache.gc()
 
