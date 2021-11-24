@@ -11,12 +11,7 @@ title: 낙관적 UI 업데이트(Optimistic UI)
 
 ---
 
-낙관적 UI업데이트
-**서버에 다녀오기 전에 UI 업데이트하기**
-
----
-
-우리가 보낸 요청에 서버가 요청 실패를 리턴할 확률이 얼마나될까요? 아마 거의 없을것이며, 대부분 성공할것입니다. 그리고 성공했을 때 받을 데이터 또한 요청을 보내는 클라이언트는 이미 알고있죠. 그래서 아폴로 클라이언트는 반응성을 높이고 유저 친화적인 UI를 위해 "아마 성공할 데이터"로 UI를 업데이트합니다.
+우리가 보낸 요청에 서버가 요청 실패를 리턴할 확률이 얼마나될까요? 아마 거의 없을것이며, 대부분 성공할것입니다. 그리고 성공했을 때 받을 데이터 또한 요청을 보내는 클라이언트는 이미 알고있죠. 그래서 아폴로 클라이언트는 반응성을 높이고 유저 친화적인 UI를 위해 `아마 성공할 데이터`로 UI를 업데이트합니다.
 
 예를 들어 우리가 블로그 서비스를 하는데 다음과 같은 뮤테이션을 해야한다고 생각해보세요.
 
@@ -110,5 +105,6 @@ optimisticResponse: {
 ### 예시 코드를 코드 샌드박스에서 보기
 
 [이 코드 샌드박스](https://codesandbox.io/s/github/apollographql/docs-examples/tree/main/full-stack/todo-list/todo-list-client?fontsize=14&hidenavigation=1&theme=dark)에서 전체 예시를 볼 수 있습니다.
-
-> [이 링크](https://github.com/apollographql/docs-examples/tree/main/full-stack/todo-list)에서 클라이언트와 서버를 각각 로컬 환경에서 돌려 확인하실 수도 있습니다.
+:::info
+[이 링크](https://github.com/apollographql/docs-examples/tree/main/full-stack/todo-list)에서 클라이언트와 서버를 각각 로컬 환경에서 돌려 확인하실 수도 있습니다.
+:::
