@@ -17,7 +17,7 @@ title: 아폴로 클라이언트 성능 향상시키기(Improving Performance)
 
 이런 경우엔 캐시 리다이렉팅을 활용해서 추가 쿼리 없이 데이터를 페치해올 수 있습니다. [다음 링크](https://hojunin.github.io/apollo-client-docs/docs/caching/advanced#%EC%BA%90%EC%8B%9C-%EB%A6%AC%EB%8B%A4%EC%9D%B4%EB%A0%89%ED%8C%85)를 참고해주세요
 
-## 데이터 미리 가져오기(prefetch)
+## 데이터 미리 가져오기(prefetching)
 
 데이터 미리 가져오기는 UI가 렌더링되기 전에 서버에서 데이터를 가져오는 것을 말합니다. 이를 통해 사용자의 쾌적한 경험을 증대시킬 수 있습니다.
 
