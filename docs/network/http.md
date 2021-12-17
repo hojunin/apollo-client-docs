@@ -7,7 +7,7 @@ title: Apollo HTTP 기본
 
 ---
 
-[공식 문서](https://www.apollographql.com/docs/react/networking/basic-http-networking/)를 번역 및 의역한 내용입니다.
+[Apollo Docs](https://www.apollographql.com/docs/react/networking/basic-http-networking/)를 번역 및 의역한 내용입니다.
 
 ---
 

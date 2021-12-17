@@ -249,6 +249,51 @@ function Todos() {
 
 위 코드에서 UI내에서 뮤테이션의 상태를 추적할 수 있는 loading과 error 값을 useMutation이 리턴해주는 result 객체에서 구조분해할 수 있습니다. 만약 콜백으로 사용하길 원하신다면 onComplete과 onError 옵션도 제공하니 사용하면 됩니다.
 
+## useMutation API
+
+제공되는 옵션과 리턴되는 result 객체가 가진 field들을 설명하겠습니다.
+
+useMutation을 콜할 때 대부분의 옵션들은 생략해도 좋습니다. 하지만 이런 옵션들도 있다는 사실을 알고 계시는게 좋습니다. [이 링크](https://www.apollographql.com/docs/react/api/react/hooks/)에서 더 자세한 사용법을 공부하세요
+
+| 옵션                | 타입                                                                                                                                                                  | 설명                                                                                                                                                                                                                 |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| mutation            | DocumentNode                                                                                                                                                          | graphql mutation document                                                                                                                                                                                            |
+| variables           | {[key:string]:any}                                                                                                                                                    | mutation이 실행되기 위해 필요한 모든 변수의 객체입니다.                                                                                                                                                              |
+| update              | (cache: DataProxy, mutationResult: FetchResult)                                                                                                                       | mutation이 발생하고 캐시를 업데이트하기 위해 사용되는 함수입니다.                                                                                                                                                    |
+| ignoreResults       | boolean                                                                                                                                                               | 이 값이 true면 리턴되는 데이터는 mutation의 결과값으로 업데이트되지 않습니다.                                                                                                                                        |
+| optimisticResponse  | object                                                                                                                                                                | 서버로부터 result값이 오기 전에 mutation 결과값을 받는것이다. optimistic UI를 구현할 수 있게 합니다.                                                                                                                 |
+| refetchQueries      | Array<string or { query: DocumentNode, variables?: TVariables}> or ((mutationResult: FetchResult) => Array<string or { query: DocumentNode, variables?: TVariables}>) | mutation이 발생하고 어떤쿼리를 리페치할지 결정하는 함수로 이루어진 배열. 쿼리의 배열일 수도 있고 리페치될 쿼리들의 이름(Document)의 배열일수도 있습니다. variables를 안주면 가장 최근에 실행한 쿼리를 또 실행합니다. |
+| awaitRefetchQueries | boolean                                                                                                                                                               | refetchQueries는 동기로 동작하는데 awaitRefetchQueries를 true로 주면 비동기로 동작하게 할 수 있습니다.                                                                                                               |
+| onComplete          | (data: TData) => void                                                                                                                                                 | mutation이 성공적으로 실행되면 콜백 함수입니다.                                                                                                                                                                      |
+| onError             | (error: ApolloError) => void                                                                                                                                          | mutation이 실패하면 실행되는 콜백함수입니다.                                                                                                                                                                         |
+| context             | Record<string,any>                                                                                                                                                    | 컴포넌트와 네트워크 사이에서 공유되는 컨텍스트입니다.                                                                                                                                                                |
+| client              | ApolloClinet                                                                                                                                                          | ApolloClinet 인스턴스. 다른 클라이언트를 넣어줘야 하는 상황이 아니면 provider의 client를 씁니다.                                                                                                                     |
+
+## useMutation Response
+
+useMutation Response값은 배열 형태로 받을 수 있는데, mutate function이 첫번째로 오고 두번째로는 mutation의 결과값이 옵니다.
+
+```tsx
+//(options?: MutationOptions) => Promise<FetchResult>
+const [mutateFunction, {data, loading ...}] = useMutation(MUTATION_DOCS, {...options})
+```
+
+|        |                                                                                       |                                                                                       |
+| ------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| mutate | UI에서 mutation을 실행하는 함수. variables, refetchQueries같은 옵션을 넣을 수도 있다. | UI에서 mutation을 실행하는 함수. variables, refetchQueries같은 옵션을 넣을 수도 있다. |
+
+다음은 결과(Result) 객체의 필드들입니다.
+
+---
+
+| 값      | 타입         | 설명                                                                                                                           |
+| ------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| data    | TData        | mutation의 결과값. 만약 IgnoreResults값을 true로 줘버리면 이 data값이 undefined가 됩니다                                       |
+| loading | boolean      | mutation의 현재 진행상태를 보여주는 boolean값입니다.                                                                           |
+| error   | ApolloError  | 만약 mutation이 서버에 갔다가 실패하고 돌아오면 이유와 함께 에러를 뱉습니다.                                                   |
+| called  | boolean      | mutation 함수가 실행될 때 true가 됩니다                                                                                        |
+| client  | ApolloClient | ApolloClient 인스턴스. client.writeData나 client.readQuery같은 캐시 메소드를 update function 외 지역에서 수행할 때 유용합니다. |
+
 ## 글을 마치며
 
 useQuery와 useMutation 훅은 graphQL을 원활하게 사용하기 위한 Apollo Clients의 핵심 API입니다. 이제 많이 익숙해졌을겁니다.
