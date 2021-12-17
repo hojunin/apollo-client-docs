@@ -24,13 +24,13 @@ Apollo Client는 Graphql 쿼리의 결과를 in-memory cache에 정규화된 형
 
 예를 들어서 id가 5인 Book 객체를 처음 호출했다고 가정해봅시다. Apollo client는 이 요청을 다음과 같은 흐름으로 처리할겁니다.
 
-![스크린샷 2021-09-06 오전 8.20.54.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c01413d0-7e4d-4486-9ea8-99907fa39930/스크린샷_2021-09-06_오전_8.20.54.png)
+![overview](./images/overview/cache_1.png)
 
 Apollo Client는 id가 5인 Book 객체가 cache에 있는지 확인해봅니다. 첫 호출이니 당연히 없습니다. 그렇다면 GraphQL 서버로 가서 해당 데이터를 가져옵니다. 중간에 cache에 들러 해당 데이터를 cache에도 업데이트 해두고, 이 데이터를 Client에 돌려줍니다.
 
 그리고 이 최초요청 이후에 똑같이 id가 5인 Book 객체를 호출한다면 위의 Flow와 다르게 다음과 같이 처리합니다.
 
-![스크린샷 2021-09-06 오전 8.21.12.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/02b19919-7091-4440-8a66-0c771984d799/스크린샷_2021-09-06_오전_8.21.12.png)
+![overview](./images/overview/cache_2.png)
 
 Apollo Client는 id가 5인 Book 객체가 cache에 있는지 확인합니다. 아까 최초 요청때 서버에 다녀와서 캐싱해둔 데이터가 존재합니다. 그렇다면 서버를 다녀오지 않아도 됩니다. 그냥 캐시에 있는 데이터를 바로 리턴해줍니다.
 
@@ -90,7 +90,7 @@ cache는 이렇게 쿼리에서 객체들을 분류해낸 다음, 각각의 객�
 
 저희 서버의 데이터를 한번 보겠습니다.
 
-![스크린샷 2021-09-06 오전 8.49.53.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ec51e118-865b-4eb8-8e04-e6700b5f86b4/스크린샷_2021-09-06_오전_8.49.53.png)
+![overview](./images/overview/cache_3.png)
 
 id: "11" , \_\_typename : "User"
 
@@ -100,7 +100,7 @@ id: "11" , \_\_typename : "User"
 
 만약에 cache가 **typename 필드가 있는데도 해당 객체의 cache ID를 발급하지 않는다면 그 객체는 부모 객체에 직접 참조된 상태인 것입니다. 예를 들면 위 사진의 info 필드의 객체를 예로 들 수 있습니다. 실제로 확인해보면 아래와 같이 User 데이터만 cache되고, 엄연히 **typename필드가 있는 UserInfo 객체는 cache되지 않은 것을 볼 수 있습니다.
 
-![스크린샷 2021-09-06 오전 8.55.25.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2de0c337-3d4c-455b-b4b6-d8af99dd9d27/스크린샷_2021-09-06_오전_8.55.25.png)
+![overview](./images/overview/cache_4.png)
 
 그래서 cache는 엄밀히 말하자면 100% flat한 구조는 아닌겁니다 (이에 대해선 왜 그런지 엄격하게 알아볼 필요가 있는데 아직 모르겠쓰으읍니다)
 
