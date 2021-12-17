@@ -123,7 +123,7 @@ function DogPhoto({ breed }) {
 위 코드를 보면, pollInterval을 500으로 세팅함으로써 현재 품종의 강아지 사진을 서버에서 0.5초마다 한번씩 받아옵니다.
 주의할 점은 만약 완벽한 실시간을 원해서 pollInterval을 0으로 세팅하면 풀링이 발생하지 않는다는 점입니다.
 
-- startPolling과 stopPolling이라는 옵션을 추가로 부여해서 동적으로 쿼리를 시작하고 종료시킬 수도 있습니다.
+-   startPolling과 stopPolling이라는 옵션을 추가로 부여해서 동적으로 쿼리를 시작하고 종료시킬 수도 있습니다.
 
 ## **리페치(Refetch)**
 
@@ -247,7 +247,7 @@ const { loading, error, data } = useQuery(GET_DOGS, {
 | cache-and-network | Apollo Client가 캐시와 gql 서버 둘다 쿼리합니다. 쿼리는 자동으로 캐시를 업데이트합니다. 서버 데이터와 캐시된 데이터의 싱크를 맞춰주면서도 빠른 응답속도를 제공합니다.                                                                         |
 | network-only      | Apollo Clinet는 먼저 graphql 서버에 데이터를 요청합니다. 그리고 cache에 그 데이터를 업데이트합니다. 이 정책은 서버 데이터를 가져오기 때문에 정확하지만 정작 캐시에 그 데이터가 있음에도 불구하고 서버를 다녀오기 때문에 비효율일 수 있습니다. |
 | no-cache          | network-only와 비슷하지만 쿼리 결과가 캐시에 저장되지 않는다는 차이점이 있습니다.                                                                                                                                                             |
-| standby           | 특정 값이 변했을 때 자동으로 데이터를 업데이트하지 않는다라는 사실을 제외하면 cache-first와 비슷한 로직입니다. 당신은 능동적으로(버튼같은거 눌러서) 리페치를 하던가 update쿼리를 날려서 값을 최신화 해야됩니다.                               |
+| standby           | 특정 값이 변했을 때 자동으로 데이터를 업데이트하지 않는다라는 사실을 제외하면 cache-first와 비슷한 로직입니다. 능동적으로(버튼같은거 눌러서) 리페치를 하던가 update쿼리를 날려서 값을 최신화 해야됩니다.                                      |
 
 ## useQuery API
 

@@ -7,6 +7,7 @@ const config = {
     title: 'Apollo Client 한국어 문서',
     tagline: '왜 아무도 번역을 안하는거야',
     url: 'https://www.apollo-kr.site',
+    baseUrl: '/',
     // url: "https://hojunin.github.io",
     // baseUrl: "/apollo-client-docs/",
     onBrokenLinks: 'throw',
