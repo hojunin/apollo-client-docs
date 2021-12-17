@@ -64,7 +64,7 @@ function AddTodo() {
 
 ### 뮤테이션 함수 호출하기 (Calling the mutate function)
 
-useMutation 훅은 useQuery처럼 컴포넌트가 렌더링될 때 자동으로 실행되지 않습니다. 그 대신에 선언할 때 받은 mutate 함수(위에 코드에서 addToDo가 함수입니다) 를 리턴받아 사용합니다. 당신은 이 함수를 원하는 곳에서 원하는 때 콜하면 됩니다. 위 코드에서 보면 submit 버튼을 누를 때 콜하죠
+useMutation 훅은 useQuery처럼 컴포넌트가 렌더링될 때 자동으로 실행되지 않습니다. 그 대신에 선언할 때 받은 mutate 함수(위에 코드에서 addToDo가 함수입니다) 를 리턴받아 사용합니다. 이 함수를 원하는 곳에서 원하는 때 콜하면 됩니다. 위 코드에서 보면 submit 버튼을 누를 때 콜하죠
 
 ### 옵션 추가하기 (Providing option)
 
