@@ -17,7 +17,11 @@ Apollo Client가 매 요청마다 Graphql Server에 다녀오지 않고도 데�
 
 아래는 Apollo에서 제공하는 Caching method의 종류입니다. 총 5가지입니다.
 
-[Caching의 종류](https://www.notion.so/21e2b80ea9ae4d81a1c34832bab4d567)
+| STRATEGY                            | API                          | DESCRIPTION                                                             |
+| ----------------------------------- | ---------------------------- | ----------------------------------------------------------------------- |
+| GraphQL 쿼리를 사용할 때            | readQuery / writeQuery       | 기본적으로 사용하는 GraphQL document만을 활용한 쿼리를 다룰 때 씁니다.  |
+| Fragment를 사용할 때                | readFragment / writeFragment | 캐시 전체가 아닌 일부 데이터(ex. Fragment) 객체를 수정할 때 사용합니다. |
+| GQL이고 뭐고 그냥 cache를 수정할 때 | cache.modify                 | GraphQL 없이 cache를 조작할 때 사용합니다(위험함👿 )                    |
 
 위의 5가지 캐싱 전략 중 상황에 맞게, 오류가 나지않게 잘 사용하시면 됩니다.
 
@@ -121,9 +125,9 @@ useEffect(() => {
 
 이러면 아래 사진처럼, Mutation 콜은 0인데 새로운 데이터 하나가 cache에 생겼습니다. 이건 서버에 없는 데이터입니다. 즉, writeQuery같은 cache에 쓰기 함수를 잘못 사용하면 서버와 클라이언트 간 데이터 무결성이 깨져버리니 사용 시 꼭 주의해야합니다.
 
-![스크린샷 2021-09-25 오전 1.28.08.png](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/aca853fd-114d-4fb8-ac7f-71dc703fc12d/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_1.28.08.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T144852Z&X-Amz-Expires=86400&X-Amz-Signature=9355a56c05287fbc5ae1f91b64e888a2cca3b955dca64eef996bb7e5d1c74cf0&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%258C%25E1%2585%25A5%25E1%2586%25AB%25201.28.08.png%22)
+![overview](./images/read_write/read_1.png)
 
-<img src ="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/4543d655-3157-4088-aad7-4663ce9fd075/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_1.29.37.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T144836Z&X-Amz-Expires=86400&X-Amz-Signature=3470753bd2f750759c8b2476f10fa5e50e0e00313a844ffbcaa86fefd4e33224&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%258C%25E1%2585%25A5%25E1%2586%25AB%25201.29.37.png%22" alt="팽귄" width="500" height="400"/>
+<img src={require("./images/read_write/read_2.png").default} alt="팽귄" width="500" height="400"/>
 
 없는 데이터로 렌더링한 결과
 
@@ -156,13 +160,9 @@ client.writeQuery({
 
 아래 사진과 같이 왼쪽 데이터는 이미 서버에 있는 데이터라 query하자마자 cache에도 이미 존재하는 데이터입니다. 이 상황에서 똑같은 id의 데이터를 바꾸니 title, content가 바뀐 모습입니다. 새로 생기거나 삭제되지 않고, 똑같인 CacheId를 가진 객체가 수정 되었습니다.
 
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/9ae6b7ac-c0db-481d-8094-8373a20f81fd/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_1.48.54.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T144316Z&X-Amz-Expires=86400&X-Amz-Signature=a29e91eea2d1b7a18ce215a52d5c95e5351a3d7c6a8c9e419b6bb83efc4feb4d&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%258C%25E1%2585%25A5%25E1%2586%25AB%25201.48.54.png%22" alt="before" width="30%" height="40%"/>
-
-Before
-
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/b61b297a-eba5-41f3-b2f9-e4dcdd24a24b/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_1.49.14.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T144456Z&X-Amz-Expires=86400&X-Amz-Signature=a5f9302068726774b90164350fe5d021361052aa2b0d1f97bfdb5ef17b0ae570&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%258C%25E1%2585%25A5%25E1%2586%25AB%25201.49.14.png%22" alt="after" width="30%" height="40%"/>
-
-After
+<img src={require("./images/read_write/read_3.png").default} alt="before" width="350" height="250"/>
+----->
+<img src={require("./images/read_write/read_4.png").default} alt="before" width="350" height="250"/>
 
 ---
 
@@ -190,9 +190,9 @@ const info = client.readFragment({
 
 위 코드는 Fragment Document와 id를 넘겨서 데이터를 읽는 과정입니다. 아래 사진에서 id, userId 필드만 읽어오는데요, 특정 CacheId의 데이터 안에서 변수로 받은 fragment에 정의된 필드만을 읽어온다는 뜻입니다.
 
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/9ae6b7ac-c0db-481d-8094-8373a20f81fd/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_1.48.54.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T144316Z&X-Amz-Expires=86400&X-Amz-Signature=a29e91eea2d1b7a18ce215a52d5c95e5351a3d7c6a8c9e419b6bb83efc4feb4d&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%258C%25E1%2585%25A5%25E1%2586%25AB%25201.48.54.png%22" alt="before" width="400" height="250"/>
+<img src={require("./images/read_write/read_5.png").default} alt="before" width="400" height="250"/>
 
-![스크린샷 2021-09-25 오전 2.00.32.png](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/cd88e4f8-828c-4189-b3c6-f45009aecd7f/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_2.00.32.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T144429Z&X-Amz-Expires=86400&X-Amz-Signature=1d0d48ff7e5b643b976f3d75e73aea7c4a5abb9b29725b16943f88640e3eb194&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%258C%25E1%2585%25A5%25E1%2586%25AB%25202.00.32.png%22)
+![shot](./images/read_write/read_6.png)
 
 위 코드에서 info를 출력해본 결과
 
@@ -214,9 +214,9 @@ client.writeFragment({
 
 정말 간단합니다. 어떤 CacheId를 가진 객체의 특정 fragment의 필드 중 원하는 필드를 변경합니다. 위에서는 18였던 userId를 2500으로 바꾸었습니다. 나머지 데이터는 똑같은 것을 볼 수 있습니다.
 
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/9ae6b7ac-c0db-481d-8094-8373a20f81fd/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_1.48.54.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T144316Z&X-Amz-Expires=86400&X-Amz-Signature=a29e91eea2d1b7a18ce215a52d5c95e5351a3d7c6a8c9e419b6bb83efc4feb4d&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%258C%25E1%2585%25A5%25E1%2586%25AB%25201.48.54.png%22" alt="Img" width="300" height="200"/>
- ------>
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/8508d737-8616-4c4e-b09c-0124c285b3b0/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_2.12.51.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T144230Z&X-Amz-Expires=86400&X-Amz-Signature=0733d508285f27966b7c8daeaebf858b6014b1f4b4eb94ee4ed382230c2cfded&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%258C%25E1%2585%25A5%25E1%2586%25AB%25202.12.51.png%22" alt="Img" width="300" height="200"/>
+<img src={require("./images/read_write/read_7.png").default} alt="Img" width="300" height="200"/>
+------>
+<img src={require("./images/read_write/read_8.png").default} alt="Img" width="300" height="200"/>
 
 ---
 
@@ -224,7 +224,7 @@ client.writeFragment({
 
 mutation은 query와 다르게 cache를 사용하지 않습니다. 애초에 FetchPolicy부터 network-only와 no-cache밖에 선택할 수 없죠. 그래서 Cache가 생겨도 Root Query 아래로 들어오지 않습니다. 개발자가 직접 Root Query 아래로 넣어줘야합니다. (그래야 생성되는 즉시 렌더링됩니다)
 
-![스크린샷 2021-09-25 오전 2.16.22.png](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/69ac7a16-f9ce-40bd-8319-d67e68af0725/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_2.16.22.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T144202Z&X-Amz-Expires=86400&X-Amz-Signature=22714f50b91e6417ba3ee21ce87ee3125d6038c72e72edb7156527112ed9772f&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%258C%25E1%2585%25A5%25E1%2586%25AB%25202.16.22.png%22)
+![shot](./images/read_write/read_9.png)
 
 Fetch Policy에 대한 자세한 설명은 [이 링크](https://www.notion.so/Apollo-GraphQL-Fetch-Policy-99c398cc3e7e421298401d9b41e761a7)를 참조해주세요
 
@@ -309,7 +309,7 @@ client.cache.modify({
 
 다음과 같이 변경되었습니다.
 
-![스크린샷 2021-09-25 오전 11.49.51.png](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6cc77c24-c34f-49eb-9ed8-619e17069a54/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_11.49.51.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T144124Z&X-Amz-Expires=86400&X-Amz-Signature=0452a7c3368e383e0d537172c00e18f8a75c44f819e1001e5832097976b54e70&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%258C%25E1%2585%25A5%25E1%2586%25AB%252011.49.51.png%22)
+![shot](./images/read_write/read_10.png)
 
 Docs의 예시 중 하나를 보겠습니다. 저희도 나중에 Article에 Comment가 붙으면 이런방식을 사용해야 할겁니다. 원래 writeFragment 메소드는 Fragment가 속한 상위 객체의 CacheId를 넘겨야 했는데, modify를 사용한다면 id를 안넘겨도 됩니다.
 
@@ -395,10 +395,11 @@ if (existingCommentRefs.some((ref) => readField('id', ref) === newComment.id)) {
 
 <!-- Horizontal Container 적용해야함 -->
 
-![스크린샷 2021-09-25 오후 1.41.52.png](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/199b6982-fcfb-4a91-b4b9-09c87d338091/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_1.41.52.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T143111Z&X-Amz-Expires=86400&X-Amz-Signature=225525100ebfedf55f0e8c1994f8604a1d92cb3acb553f1ef87a543ea12a251e&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE%25201.41.52.png%22)
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/9d8020e5-9e05-4da1-ad76-fafb92cb4d9b/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_1.42.04.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T143102Z&X-Amz-Expires=86400&X-Amz-Signature=383cd963f922e0ccf1b027a93a0f396b8cd8c53d858626ff7a4988ba971cfc05&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE%25201.42.04.png%22" alt="Example banner" width="400" height= "200"/>
+![shot](./images/read_write/read_11.png)
 
-![스크린샷 2021-09-25 오후 1.43.11.png](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/80971ef5-b9d7-4c8e-8607-d6ababad74aa/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_1.43.11.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T143050Z&X-Amz-Expires=86400&X-Amz-Signature=06a5cb2d969093507d2031491318ce0b00ff2adb5887f128b6a92c5ddd62379e&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE%25201.43.11.png%22)
+<img src={require("./images/read_write/read_12.png").default} alt="Example banner" width="400" height= "200"/>
+
+![shot](./images/read_write/read_13.png)
 
 1. INVALIDATE
 
@@ -408,11 +409,11 @@ if (existingCommentRefs.some((ref) => readField('id', ref) === newComment.id)) {
 
 이와 같은 동작을 cache.modify를 사용하게되면 삭제하거나 수정하지 않아도 가능합니다. INVALIDATE 값을 리턴해주면 됩니다. 아래와 같이 사용하면 되고 데이터는 그대로인데 해당 field는 무효화됩니다.
 
-![스크린샷 2021-09-25 오후 1.49.25.png](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/5c60abea-8531-4aa4-97f5-99d02bcf07e6/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_1.49.25.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T143036Z&X-Amz-Expires=86400&X-Amz-Signature=6613bf76517c55a196f03e2ee3584b602ce5a632e2023abd140c148a37b1aab3&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE%25201.49.25.png%22)
+![shot](./images/read_write/read_14.png)
 
 특정 field만 무효화하고 싶을 때
 
-![스크린샷 2021-09-25 오후 2.08.56.png](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/ae4c7f94-aba6-4682-8682-93a4a72cd23c/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_2.08.56.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T143019Z&X-Amz-Expires=86400&X-Amz-Signature=1d1a3f21dc72f064184ad01cebfd9635e27bc32cbdc6aafbc485f1552b887af0&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE%25202.08.56.png%22)
+![shot](./images/read_write/read_15.png)
 
 모든 field들을 무효화하고 싶을 때
 
@@ -422,11 +423,11 @@ if (existingCommentRefs.some((ref) => readField('id', ref) === newComment.id)) {
 
     아래와 같이 Cache엔 없지만 임의로 Cache Data처럼 생긴 NewArticle을 만들어서 identify 메소드에 넣어보겠습니다.
 
-    ![스크린샷 2021-09-25 오후 2.12.09.png](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/bd9d0227-f914-4cc2-9ea6-53eed445c054/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_2.12.09.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T142307Z&X-Amz-Expires=86400&X-Amz-Signature=c7f7e8b8a6ca36b7b499ac974eee46f73a95d0ae78afec6abd95b53e81b46178&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE%25202.12.09.png%22)
+    ![shot](./images/read_write/read_16.png)
 
     실제 cache에 없는 데이터도 CacheID 계산이 잘 되는것을 볼 수 있습니다.
 
-    ![스크린샷 2021-09-25 오후 2.14.28.png](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/59343ff9-e822-4031-8966-541229551e95/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-09-25_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_2.14.28.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T142903Z&X-Amz-Expires=86400&X-Amz-Signature=47d185bf50b2864db4edfcfc7298f5212c8b5e7707b26174bce6cbd9281104ed&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202021-09-25%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE%25202.14.28.png%22)
+    ![shot](./images/read_write/read_17.png)
 
 ---
 
