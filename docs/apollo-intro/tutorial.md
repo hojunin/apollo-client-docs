@@ -26,7 +26,7 @@ cd tutorial
 npm start
 ```
 
-![스크린샷 2021-08-23 오전 8.46.23.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e794ff18-0649-48dc-89ee-c603d1e1687f/스크린샷_2021-08-23_오전_8.46.23.png)
+![tutorial](./tutorial_img_1.png)
 
 이제 npm으로 필요한 패키지를 설치합니다.
 
@@ -89,7 +89,7 @@ npm start
 
 실행 후 React App이 브라우저를 통해 켜지면 `cmd+shift+j`를 눌러 콘솔창을 열어 데이터를 확인합니다.
 
-![스크린샷 2021-08-23 오전 8.50.51.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1445afef-4ae6-409a-9aa5-4d858e4fd0e5/스크린샷_2021-08-23_오전_8.50.51.png)
+![tutorial_2](./tutorial_img_2.png)
 
 이렇게 Apollo Client로 GraphQL를 손쉽게 실행하는게 유용해보이지만 Apollo Client의 진면목은 React와 같은 View Layer와 결합되었을 때 빛을 발합니다. Query와 UI를 결합해서 새로운 데이터가 들어오거나 업데이트되었을 때 즉각 바뀌는 UI를 경험해보세요. 어떻게 동작하는지 아래에서 확인해보겠습니다.
 
