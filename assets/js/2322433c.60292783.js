@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkapollo_client=self.webpackChunkapollo_client||[]).push([[4327],{1731:function(l){l.exports=JSON.parse('{"allTagsPath":"/blog/tags","slug":"/blog/tags/apollo","name":"Apollo","count":1,"permalink":"/blog/tags/apollo"}')}}]);

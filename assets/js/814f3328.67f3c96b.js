@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkapollo_client=self.webpackChunkapollo_client||[]).push([[2535],{5641:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"\uc544\ud3f4\ub85c \uce90\uc2dc\uc815\ucc45(fetchPolicy)","permalink":"/blog/apollo-fetch-policy"},{"title":"\ud658\uc601\ud569\ub2c8\ub2e4","permalink":"/blog/welcome"}]}')}}]);
