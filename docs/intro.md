@@ -16,11 +16,11 @@ sidebar_position: 1
 
 ## 특징
 
--   명확한 데이터 가져오기 : 따로 추적하지 않아도 쿼리만 작성하면 데이터가 불러와집니다.
--   양질의 개발자 경험 : TypeScript와 Chrome, Firefox DevTools, VSCode에서 제공하는 Apollo 기능들을 활용하여 개발을 즐겨보세요
--   최신 리액트를 위한 디자인 : 훅과 같은 최신 리액트의 이점을 살려보세요
--   증가하는 범용성 : 어떤 JS 앱에서든 Apollo를 활용해봇베요.
--   확장성 : 어떤 GraphQL API든 ?
+-   명확한 데이터 가져오기 : 따로 추적하지 않아도 쿼리만 작성하면 데이터가 불러올 수 있습니다.
+-   양질의 개발자 경험 : TypeScript와 Chrome, Firefox DevTools, VSCode에서 제공하는 Apollo 기능들을 활용하여 개발을 즐겨보세요.
+-   최신 리액트를 위한 디자인 : 훅과 같은 최신 리액트의 이점을 살려보세요.
+-   증가하는 범용성 : 어떤 JS 앱에서든 Apollo를 활용해보세요.
+-   확장성 : 어떤 GraphQL API든(?)
 -   커뮤니티 : GraphQL 커뮤니티에서 다양한 개발자들과 소통해보세요.
 
 ---
@@ -54,4 +54,4 @@ sidebar_position: 1
 ### Native Mobile
 
 -   IOS (Swift)
--   안드로이드 (Java or Kotlion)
+-   안드로이드 (Java or Kotlin)
